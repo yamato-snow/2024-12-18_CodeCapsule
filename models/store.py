@@ -12,13 +12,14 @@ class CapsuleStore:
         self.capsules: Dict[str, CapsuleData] = {}
         self.load_data()
 
-    def add_capsule(self, capsule: CapsuleData):
+    def add_capsule(self, capsule: CapsuleData) -> bool:
         logging.debug(f"キャプセルを追加します: {capsule.id}")
         if not self.is_valid_code(capsule.code):
             logging.error(f"無効なコードが含まれています: {capsule.id}")
-            return  # 無効なコードの場合は追加しません
+            return False  # 無効なコードの場合は追加しません
         self.capsules[capsule.id] = capsule
         self.save_data()
+        return True
 
     def get_capsule(self, capsule_id: str) -> Optional[CapsuleData]:
         return self.capsules.get(capsule_id)

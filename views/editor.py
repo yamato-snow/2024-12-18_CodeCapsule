@@ -67,12 +67,21 @@ class CapsuleEditor(ft.View):
                 open_at=datetime.now()  # MVPでは現在時刻を使用
             )
             
-            self.store.add_capsule(capsule)
+            success = self.store.add_capsule(capsule)
+            if not success:
+                self.page.snack_bar = ft.SnackBar(ft.Text("無効なコードが含まれています。"))
+                self.page.snack_bar.open = True
+                self.page.update()
+                return
+            
             logging.debug(f"キャプセルが正常に追加されました: {capsule.id}")
             if self.on_save:
                 self.on_save()
         except Exception as e:
             logging.error(f"save_capsule でエラーが発生しました: {e}")
+            self.page.snack_bar = ft.SnackBar(ft.Text("キャプセルの保存中にエラーが発生しました。"))
+            self.page.snack_bar.open = True
+            self.page.update()
 
     def on_page_load(self, e):
         logging.debug("on_page_load メソッドが呼び出されました。")

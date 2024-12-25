@@ -20,12 +20,17 @@ class CapsuleViewer(ft.View):
             return ft.Text("キャプセルが見つかりません。", size=20)
         
         # キャプセルの詳細を表示
-        return ft.Column([
-            ft.Text(f"メッセージ: {capsule.message}", size=20),
-            ft.Text(f"コード: {capsule.code}", size=14),
-            ft.Text(f"作成日: {capsule.created_at.strftime('%Y-%m-%d')}", size=14),
-            ft.Text(f"開封日: {capsule.open_at.strftime('%Y-%m-%d')}", size=14)
-        ], spacing=10)
+        return ft.ListView(
+            expand=True,
+            spacing=10,
+            padding=20,
+            controls=[
+                ft.Text(f"メッセージ: {capsule.message}", size=20),
+                ft.Text(f"コード: {capsule.code}", size=14),
+                ft.Text(f"作成日: {capsule.created_at.strftime('%Y-%m-%d')}", size=14),
+                ft.Text(f"開封日: {capsule.open_at.strftime('%Y-%m-%d')}", size=14)
+            ]
+        )
 
     def set_capsule_id(self, capsule_id: str):
         logging.debug(f"Capsule ID を設定します: {capsule_id}")

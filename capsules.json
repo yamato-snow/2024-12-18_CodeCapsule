@@ -54,5 +54,12 @@
         "message": "test",
         "created_at": "2024-12-25T10:14:03.024934",
         "open_at": "2024-12-25T10:14:03.024934"
+    },
+    "b89ba7c4-b70a-438a-9c0f-701c0ed78416": {
+        "id": "b89ba7c4-b70a-438a-9c0f-701c0ed78416",
+        "code": "from dataclasses import dataclass\r\nfrom datetime import datetime\r\nimport uuid\r\n\r\n@dataclass\r\nclass CapsuleData:\r\n    id: str\r\n    code: str\r\n    message: str\r\n    created_at: datetime\r\n    open_at: datetime\r\n\r\n    @classmethod\r\n    def create(cls, code: str, message: str, open_at: datetime):\r\n        return cls(\r\n            id=str(uuid.uuid4()),\r\n            code=code,\r\n            message=message,\r\n            created_at=datetime.now(),\r\n            open_at=open_at\r\n        )\r\n\r\n    def to_dict(self) -> dict:\r\n        return {\r\n            \"id\": self.id,\r\n            \"code\": self.code,\r\n            \"message\": self.message,\r\n            \"created_at\": self.created_at.isoformat(),\r\n            \"open_at\": self.open_at.isoformat()\r\n        }\r\n\r\n    @classmethod\r\n    def from_dict(cls, data: dict) -> 'CapsuleData':\r\n        return cls(\r\n            id=data[\"id\"],\r\n            code=data[\"code\"],\r\n            message=data[\"message\"],\r\n            created_at=datetime.fromisoformat(data[\"created_at\"]),\r\n            open_at=datetime.fromisoformat(data[\"open_at\"])\r\n        ) ",
+        "message": "testtest",
+        "created_at": "2024-12-25T11:05:08.360537",
+        "open_at": "2024-12-25T11:05:08.360537"
     }
 }
