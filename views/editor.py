@@ -12,7 +12,7 @@ class CapsuleEditor(ft.View):
         self.on_save = on_save
 
     def build(self):
-        logging.debug("CapsuleEditor ビューの build メソッドが呼び出されました。")
+        logging.info("CapsuleEditor ビューの build メソッドが呼び出されました。")
         try:
             self.code_editor = ft.TextField(
                 multiline=True,
@@ -48,11 +48,11 @@ class CapsuleEditor(ft.View):
             
             return content
         except Exception as e:
-            logging.error(f"CapsuleEditor.build でエラーが発生しました: {e}")
+            logging.error(f"CapesuleEditor.build でエラーが発生しました: {e}")
             return ft.Text("エラーが発生しました。")
 
     def save_capsule(self, e):
-        logging.debug("save_capsule メソッドが呼び出されました。")
+        logging.info("save_capsule メソッドが呼び出されました。")
         try:
             if not self.code_editor.value or not self.message_editor.value:
                 logging.warning("コードまたはメッセージが入力されていません。")
@@ -69,12 +69,13 @@ class CapsuleEditor(ft.View):
             
             success = self.store.add_capsule(capsule)
             if not success:
+                logging.warning(f"無効なコードが含まれています: {capsule.id}")
                 self.page.snack_bar = ft.SnackBar(ft.Text("無効なコードが含まれています。"))
                 self.page.snack_bar.open = True
                 self.page.update()
                 return
             
-            logging.debug(f"キャプセルが正常に追加されました: {capsule.id}")
+            logging.info(f"キャプセルが正常に追加されました: {capsule.id}")
             if self.on_save:
                 self.on_save()
         except Exception as e:
@@ -84,5 +85,5 @@ class CapsuleEditor(ft.View):
             self.page.update()
 
     def on_page_load(self, e):
-        logging.debug("on_page_load メソッドが呼び出されました。")
+        logging.info("on_page_load メソッドが呼び出されました。")
         self.update() 

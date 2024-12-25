@@ -12,7 +12,7 @@ class CapsuleViewer(ft.View):
         self.capsule_id = capsule_id
 
     def build(self):
-        logging.debug("CapsuleViewer の build メソッドが呼び出されました。")
+        logging.info("CapsuleViewer の build メソッドが呼び出されました。")
         # キャプセルデータを取得
         capsule = self.store.get_capsule(self.capsule_id)
         if not capsule:
@@ -33,6 +33,6 @@ class CapsuleViewer(ft.View):
         )
 
     def set_capsule_id(self, capsule_id: str):
-        logging.debug(f"Capsule ID を設定します: {capsule_id}")
+        logging.info(f"Capsule ID を設定します: {capsule_id}")
         self.capsule_id = capsule_id
         self.update() 

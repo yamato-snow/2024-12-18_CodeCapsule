@@ -10,8 +10,7 @@ class Dashboard(ft.View):
         self.page = page
 
     def build(self):
-        logging.debug("Dashboard ビューの build メソッドが呼び出されました。")
-        print("Dashboard の build メソッドが呼び出されました。")
+        logging.info("Dashboard ビューの build メソッドが呼び出されました。")
         try:
             self.header = ft.Text(
                 "CodeCapsule",
@@ -30,19 +29,18 @@ class Dashboard(ft.View):
                 )
             )
 
+            capsules = self.store.get_all_capsules()
+            logging.info(f"表示するキャプセル数: {len(capsules)}")
+
+            capsule_cards = [
+                self.create_capsule_card(capsule) for capsule in capsules
+            ]
             self.capsules_list = ft.ListView(
                 expand=True,
                 spacing=10,
-                padding=20
+                padding=20,
+                controls=capsule_cards
             )
-
-            capsules = self.store.get_all_capsules()
-            logging.debug(f"表示するキャプセル数: {len(capsules)}")
-
-            for capsule in capsules:
-                logging.debug(f"キャプセルを追加します: {capsule.id}")
-                card = self.create_capsule_card(capsule)
-                self.capsules_list.controls.append(card)
 
             content = ft.Column([
                 self.header,
@@ -54,11 +52,10 @@ class Dashboard(ft.View):
             return content
         except Exception as e:
             logging.error(f"Dashboard.build でエラーが発生しました: {e}")
-            print(f"Dashboard.build でエラーが発生しました: {e}")
             return ft.Text("エラーが発生しました。")
 
     def new_capsule(self, e):
-        logging.debug("新規キャプセル作成ボタンがクリックされました。")
+        logging.info("新規キャプセル作成ボタンがクリックされました。")
         self.page.go("/create")
 
     def create_capsule_card(self, capsule):

@@ -25,7 +25,11 @@ class MainLayout:
 
 def main(page: ft.Page):
     # ログ設定
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
     
     page.title = "CodeCapsule"
     page.theme_mode = ft.ThemeMode.DARK
