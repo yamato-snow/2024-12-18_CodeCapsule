@@ -37,4 +37,4 @@ class CapsuleData:
             message=data["message"],
             created_at=datetime.fromisoformat(data["created_at"]),
             open_at=datetime.fromisoformat(data["open_at"])
-        )
+        ) 

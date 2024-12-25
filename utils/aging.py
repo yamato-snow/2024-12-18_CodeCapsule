@@ -1,4 +1,5 @@
 from datetime import datetime
+import flet as ft
 
 def calculate_aging_effect(created_at: datetime) -> dict:
     """
@@ -9,7 +10,6 @@ def calculate_aging_effect(created_at: datetime) -> dict:
     # 基本エフェクト
     effects = {
         "animate_opacity": ft.Animation(300, "easeOut"),
-        "animate_bgcolor": ft.Animation(300, "easeOut"),
         "border_radius": 10,
         "gradient": None
     }
@@ -24,9 +24,12 @@ def calculate_aging_effect(created_at: datetime) -> dict:
         effects.update({
             "opacity": 0.9,
             "bgcolor": "#323232",
+            "animate_opacity": True,
+            "animation_duration": 300,
+            "animation_curve": "easeOut",
             "gradient": ft.LinearGradient(
-                begin=ft.alignment.top_left,
-                end=ft.alignment.bottom_right,
+                begin=ft.Alignment.topLeft,
+                end=ft.Alignment.bottomRight,
                 colors=["#424242", "#323232"]
             )
         })
@@ -34,11 +37,14 @@ def calculate_aging_effect(created_at: datetime) -> dict:
         effects.update({
             "opacity": 0.8,
             "bgcolor": "#212121",
+            "animate_opacity": True,
+            "animation_duration": 300,
+            "animation_curve": "easeOut",
             "gradient": ft.LinearGradient(
-                begin=ft.alignment.top_left,
-                end=ft.alignment.bottom_right,
+                begin=ft.Alignment.topLeft,
+                end=ft.Alignment.bottomRight,
                 colors=["#323232", "#212121"]
             )
         })
     
-    return effects
+    return effects 
