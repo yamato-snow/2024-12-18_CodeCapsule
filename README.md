@@ -95,6 +95,19 @@ git push origin <ブランチ名>
 └── requirements.txt   # 依存パッケージリスト
 ```
 
+### 実行可能ファイルの生成
+
+```bash
+# pip install pyinstaller
+pip install pyinstaller
+
+# コマンドラインで実行
+pyinstaller --onefile --windowed --icon=assets/icon.ico --name=CodeCapsule main.py
+
+# app.specファイルを使用して実行
+pyinstaller app.spec --clean    
+```
+
 ## ライセンス
 
 MITライセンス
