@@ -1,15 +1,16 @@
 import flet as ft
 from utils.aging import calculate_aging_effect
 from models.store import CapsuleStore
+from models.capsule import CapsuleData
 import logging
 
 class Dashboard(ft.View):
-    def __init__(self, store: CapsuleStore, page: ft.Page):
+    def __init__(self, store: CapsuleStore, page: ft.Page) -> None:
         super().__init__(route="/dashboard")
         self.store = store
         self.page = page
 
-    def build(self):
+    def build(self) -> ft.Control:
         logging.info("Dashboard ビューの build メソッドが呼び出されました。")
         try:
             self.header = ft.Text(
@@ -54,11 +55,11 @@ class Dashboard(ft.View):
             logging.error(f"Dashboard.build でエラーが発生しました: {e}")
             return ft.Text("エラーが発生しました。")
 
-    def new_capsule(self, e):
+    def new_capsule(self, e: ft.ControlEvent) -> None:
         logging.info("新規キャプセル作成ボタンがクリックされました。")
         self.page.go("/create")
 
-    def create_capsule_card(self, capsule):
+    def create_capsule_card(self, capsule: CapsuleData) -> ft.Card:
         return ft.Card(
             content=ft.Container(
                 content=ft.Column([

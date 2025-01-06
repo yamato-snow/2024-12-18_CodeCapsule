@@ -8,7 +8,7 @@ import logging
 from models.capsule import CapsuleData
 
 class CapsuleStore:
-    def __init__(self):
+    def __init__(self) -> None:
         self.capsules: Dict[str, CapsuleData] = {}
         self.load_data()
 
@@ -28,7 +28,7 @@ class CapsuleStore:
         logging.debug(f"全キャプセル数: {len(self.capsules)}")
         return list(self.capsules.values())
 
-    def load_data(self):
+    def load_data(self) -> None:
         data_file = Path(__file__).parent.parent / "capsules.json"
         logging.debug(f"キャプセルデータをロードします: {data_file.resolve()}")
         if data_file.exists():
@@ -44,7 +44,7 @@ class CapsuleStore:
         else:
             self.capsules = {}
 
-    def save_data(self):
+    def save_data(self) -> None:
         data = {k: v.to_dict() for k, v in self.capsules.items()}
         try:
             data_file = Path(__file__).parent.parent / "capsules.json"

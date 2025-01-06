@@ -11,7 +11,7 @@ class CapsuleData:
     open_at: datetime
 
     @classmethod
-    def create(cls, code: str, message: str, open_at: datetime):
+    def create(cls, code: str, message: str, open_at: datetime) -> 'CapsuleData':
         return cls(
             id=str(uuid.uuid4()),
             code=code,
