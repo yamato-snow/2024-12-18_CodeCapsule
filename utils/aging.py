@@ -1,11 +1,12 @@
 from datetime import datetime
 import flet as ft
+from config.constants import AGING_THRESHOLDS, AGING_STYLES
 
 def calculate_aging_effect(created_at: datetime) -> dict:
     """
     経過時間に応じたエイジング効果を計算
     """
-    days = (datetime.now() - created_at).days
+    time_passed = datetime.now() - created_at
     
     # 基本エフェクト
     effects = {
@@ -15,35 +16,32 @@ def calculate_aging_effect(created_at: datetime) -> dict:
     }
     
     # 経過時間によるエフェクトの変化
-    if days < 7:  # 1週間未満
+    if time_passed < AGING_THRESHOLDS["WEEK"]:  # 1週間未満
+        effects.update(AGING_STYLES["NEW"])
+    elif time_passed < AGING_THRESHOLDS["MONTH"]:  # 1ヶ月未満
+        style = AGING_STYLES["WEEK_OLD"]
         effects.update({
-            "opacity": 1.0,
-            "bgcolor": "#424242",
-        })
-    elif days < 30:  # 1ヶ月未満
-        effects.update({
-            "opacity": 0.9,
-            "bgcolor": "#323232",
+            **style,
             "animate_opacity": True,
             "animation_duration": 300,
             "animation_curve": "easeOut",
             "gradient": ft.LinearGradient(
                 begin=ft.Alignment.topLeft,
                 end=ft.Alignment.bottomRight,
-                colors=["#424242", "#323232"]
+                colors=style["gradient_colors"]
             )
         })
     else:  # それ以上
+        style = AGING_STYLES["MONTH_OLD"]
         effects.update({
-            "opacity": 0.8,
-            "bgcolor": "#212121",
+            **style,
             "animate_opacity": True,
             "animation_duration": 300,
             "animation_curve": "easeOut",
             "gradient": ft.LinearGradient(
                 begin=ft.Alignment.topLeft,
                 end=ft.Alignment.bottomRight,
-                colors=["#323232", "#212121"]
+                colors=style["gradient_colors"]
             )
         })
     
